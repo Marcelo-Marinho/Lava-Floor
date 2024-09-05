@@ -66,8 +66,7 @@ func _physics_process(_delta: float) -> void:
 		
 		
 	
-	if Input.is_action_just_pressed("reset"):
-		get_tree().change_scene_to_file("res://menu.tscn")
+	
 	
 	$Ui/score.text = "Score: "+str(Global.last_score)
 	
@@ -109,8 +108,9 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		Action()
 	
-	if not get_tree().paused:
-		move_and_slide()
+	if not get_tree() == null:
+		if not get_tree().paused:
+			move_and_slide()
 	
 	#on update
 	for x in range(26, 72 + 1):
@@ -125,9 +125,14 @@ func _physics_process(_delta: float) -> void:
 					Floor.set_cell(1, pos, 0, Vector2i(3, 0))
 				
 	if tool == "gun":
-		if not get_tree().paused:
-			$Sprite/gun.look_at(get_global_mouse_position())
-
+		if not get_tree() == null:
+			if not get_tree().paused:
+				$Sprite/gun.look_at(get_global_mouse_position())
+				
+				
+	if Input.is_action_just_pressed("reset"):
+		get_tree().change_scene_to_file("res://menu.tscn")
+	
 func dmg(x):
 	$dmg.play()
 	$anim.play("dmg")

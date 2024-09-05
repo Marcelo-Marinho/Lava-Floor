@@ -24,6 +24,11 @@ Best Score: "+str(Global.best_score)
 	$Border.button_pressed = Global.border
 	$Animations.button_pressed = Global.animations
 	$Music.button_pressed = Global.music
+	for i in range(0, 4):
+		if $Color.get_item_text(i) == Global.color:
+			$Color.selected = i
+			color(Global.color)
+			break
 	pass
 
 func _on_color_item_selected(index: int) -> void:
