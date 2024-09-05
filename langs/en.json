@@ -1,0 +1,28 @@
+{
+	
+	"power_ups": {
+		"0": ["Nothing", "Does nothing..."],
+		"1": ["Iron feet", "You can walk in lava"],
+		"2": ["Death bullet", "One shoot to kill any enemy, but you will receive 2x of damage (that's the price for that power)"],
+		"3": ["Piercing shot", "Are you a sniper?"],
+		"4": ["Twins", "You can now shoot two bullets instead of one"],
+		"5": ["Shotgun", "Do you don't like pistols? Why not a shotgun?"],
+		"6": ["Tile lover", "More one point for each tile builded"],
+		"7": ["Strong heart", "Cure 5 health points in every power up"],
+		"8": ["Hot shower", "Don't take damage in lava"]
+	},
+	
+	"Hud": {
+		"Score": "Score:",
+		"Particles": "Particles:",
+		"Border": "Border:",
+		"Animations": "Smooth\nAnimations:",
+		"Music": "Music:",
+		"Color": "Color:",
+		"Colors": ["Orange", "Blue", "Purple", "Nothing"],
+		"Last": "Last Score: ",
+		"Best": "Best Score: ",
+		"Play": "PLAY",
+	}
+	
+}

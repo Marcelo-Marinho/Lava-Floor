@@ -1,0 +1,28 @@
+{
+	
+	"power_ups": {
+		"0": ["Nada", "Faz nada..."],
+		"1": ["Botas de ferro", "Permite andar na lava"],
+		"2": ["Bala da morte", "Mate qualquer inimigo com um tiro, mas você recebe o dobro de dano (é o preço a se pagar por esse poder)"],
+		"3": ["Tiro perfurante", "Permite atirar em mais de um inimigo com uma bala"],
+		"4": ["Gêmeos", "Agora você atira duas balas"],
+		"5": ["Shotgun", "Cansado de usar uma pistola? Que tal uma shotgun?"],
+		"6": ["Construtor por amor", "Receba um ponto por cada quadrado construido"],
+		"7": ["Coração de aço", "Recupere 5 pontos de vida em todo power up"],
+		"8": ["Banho quente", "Não tome dano ao cair na lava"]
+	},
+	
+	"Hud": {
+		"Score": "Pontos:",
+		"Particles": "Particulas:",
+		"Border": "Borda:",
+		"Animations": "Animações\nSuaves:",
+		"Music": "Música:",
+		"Color": "Cor:",
+		"Colors": ["Laranja", "Azul", "Roxo", "Nada"],
+		"Last": "Última pontuação: ",
+		"Best": "Melhor pontuação: ",
+		"Play": "VAMO JOGAR LOGO",
+	}
+	
+}

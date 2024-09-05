@@ -1,0 +1,158 @@
+[gd_scene load_steps=13 format=3 uid="uid://cebjn0lih7e5h"]
+
+[ext_resource type="Script" path="res://fire_imp.gd" id="1_y3we5"]
+[ext_resource type="Texture2D" uid="uid://bmopg1ldcyyww" path="res://imgs/fire_imp_0.png" id="2_nyvyy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_edl4a"]
+radius = 8.0
+
+[sub_resource type="Animation" id="Animation_umbxd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mhaa7"]
+resource_name = "default"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ksh4v"]
+_data = {
+"RESET": SubResource("Animation_umbxd"),
+"default": SubResource("Animation_mhaa7")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3hsw"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_qbeje"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ajkm6"]
+resource_name = "walk"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gxqgr"]
+_data = {
+"RESET": SubResource("Animation_qbeje"),
+"walk": SubResource("Animation_ajkm6")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fit7"]
+bg_color = Color(0.105882, 0.0862745, 0.129412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tx4yu"]
+bg_color = Color(0.478431, 0.419608, 0.521569, 1)
+
+[node name="Fire_imp" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_y3we5")
+
+[node name="area_dmg" type="Area2D" parent="."]
+
+[node name="col" type="CollisionShape2D" parent="area_dmg"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_edl4a")
+
+[node name="sprt" type="Sprite2D" parent="."]
+texture = ExtResource("2_nyvyy")
+hframes = 2
+
+[node name="Sprite" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ksh4v")
+}
+
+[node name="col" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_m3hsw")
+debug_color = Color(0.99289, 0, 0.245631, 0.42)
+
+[node name="spawn" type="Timer" parent="."]
+autostart = true
+
+[node name="walk" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gxqgr")
+}
+
+[node name="explosion" type="CPUParticles2D" parent="."]
+emitting = false
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 2.5
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 25.0
+scale_amount_min = 0.5
+scale_amount_max = 2.5
+color = Color(0.74902, 0.764706, 1, 1)
+
+[node name="HP_bar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -8.0
+offset_top = -10.0
+offset_right = 8.0
+offset_bottom = -6.0
+theme_override_styles/background = SubResource("StyleBoxFlat_3fit7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tx4yu")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[connection signal="body_entered" from="area_dmg" to="." method="_on_area_dmg_body_entered"]
+[connection signal="timeout" from="spawn" to="." method="_on_spawn_timeout"]
