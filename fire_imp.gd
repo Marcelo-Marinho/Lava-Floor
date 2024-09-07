@@ -3,6 +3,9 @@ extends CharacterBody2D
 const SPEED = 50
 @onready var plyr = get_tree().root.get_node("Game").get_node("Plyr")
 var HP = 1
+var spawn_protection = true
+
+var possible_drops = ["res://drops/card_drop.tscn", "res://drops/wood_drop.tscn"]
 
 func _ready() -> void:
 	randomize()
@@ -31,6 +34,8 @@ func _on_spawn_timeout() -> void:
 	if plyr != null:
 		velocity = SPEED * global_position.direction_to(plyr.global_position)
 		
+		spawn_protection = false
+		
 		if plyr.global_position.x > global_position.x:
 			$sprt.flip_h = false
 		elif plyr.global_position.x < global_position.x:
@@ -48,10 +53,23 @@ func dmg(x):
 	
 	if HP <= 0:
 		Global.last_score += 1
+		var choose_drop = randi_range(0, len(possible_drops) - 1)
+		
+		var p = randi_range(0, 99)
+		
+		if possible_drops[choose_drop] != null and p >= 90:
+			var drop = load(str(possible_drops[choose_drop]))
+			var obj_drop = drop.instantiate()
+			obj_drop.global_position = global_position
+			get_parent().call_deferred("add_child", obj_drop)
+			
 		queue_free()
 
 
 func _on_area_dmg_body_entered(body: Node2D) -> void:
 	if body.is_in_group("plyr"):
-		body.dmg(2.5)
+		if spawn_protection:
+			dmg(999)
+		else:
+			body.dmg(2.5)
 	pass # Replace with function body.

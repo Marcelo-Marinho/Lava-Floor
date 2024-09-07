@@ -28,7 +28,7 @@ func colorChange(c):
 	$Plyr/Ui/HpBar/icon.modulate = cor
 	
 	if not Global.border:
-		$Plyr/Ui/border.queue_free()
+		$Plyr/construct_area/border.queue_free()
 	pass
 
 

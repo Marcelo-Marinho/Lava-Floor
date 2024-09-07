@@ -22,6 +22,7 @@ func _on_not_screen_exited() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
+		$death.pitch_scale = randf_range(0.9, 1.1)
 		$death.play()
 		
 		body.dmg(1)

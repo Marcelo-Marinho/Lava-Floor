@@ -9,7 +9,10 @@
 		"5": ["Shotgun", "Cansado de usar uma pistola? Que tal uma shotgun?"],
 		"6": ["Construtor por amor", "Receba um ponto por cada quadrado construido"],
 		"7": ["Coração de aço", "Recupere 5 pontos de vida em todo power up"],
-		"8": ["Banho quente", "Não tome dano ao cair na lava"]
+		"8": ["Banho quente", "Não tome dano ao cair na lava"],
+		"9": ["Chumbo infinito", "Mete bala nos inimigos sem recarregar"],
+		"10": ["Lenhador", "Ganhe uma madeira a cada power up"],
+		"11": ["Expansão de domínio", "Construa em uma maior área"]
 	},
 	
 	"Hud": {

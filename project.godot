@@ -33,10 +33,16 @@ mouse_cursor/custom_image_hotspot=Vector2(16, 16)
 [file_customization]
 
 folder_colors={
+"res://drops/": "yellow",
 "res://imgs/": "red",
 "res://langs/": "green",
 "res://sounds/": "blue"
 }
+
+[global_group]
+
+Drop=""
+Enemy=""
 
 [input]
 
@@ -86,6 +92,7 @@ debug_key={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Lava"
 2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Drops"
 
 [rendering]
 

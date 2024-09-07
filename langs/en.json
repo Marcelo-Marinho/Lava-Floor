@@ -9,7 +9,10 @@
 		"5": ["Shotgun", "Do you don't like pistols? Why not a shotgun?"],
 		"6": ["Tile lover", "More one point for each tile builded"],
 		"7": ["Strong heart", "Cure 5 health points in every power up"],
-		"8": ["Hot shower", "Don't take damage in lava"]
+		"8": ["Hot shower", "Don't take damage in lava"],
+		"9": ["Infinity bullets", "Shoot without spend bullets"],
+		"10": ["Lumberjack", "Get 1 wood in every power up"],
+		"11": ["Domain expansion", "Get a bigger building area"]
 	},
 	
 	"Hud": {

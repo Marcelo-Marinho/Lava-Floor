@@ -8,7 +8,7 @@ var show_fps = true
 
 #idk
 var music = true
-var lang = "pt-br"
+var lang = "en"
 
 #color
 var color = "Orange"

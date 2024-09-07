@@ -3,7 +3,10 @@ extends CharacterBody2D
 const SPEED = 75
 var tool = "gun"
 @onready var Floor = $"../floor"
-var HP = 20
+
+@export var HP = 20
+@export var quant_woods = 20
+@export var ammo = 24
 
 var temp
 var count = 0
@@ -26,6 +29,7 @@ var double_blt     = false #X
 var piercing_blt   = false #X
 var shotgun        = false #X
 var tile_lover     = false #X
+var infinity_blt   = false
 # ====================== #
 
 
@@ -134,6 +138,7 @@ func _physics_process(_delta: float) -> void:
 		get_tree().change_scene_to_file("res://menu.tscn")
 	
 func dmg(x):
+	$dmg.pitch_scale = randf_range(0.9, 1.1)
 	$dmg.play()
 	$anim.play("dmg")
 	HP -= x
@@ -160,23 +165,47 @@ func Action():
 		$item.play("item_use")
 		
 	if tool == "gun":
-		$shoot.play()
-		#$item.play("item_use")
-		#if Global.particles:
-		#	$Sprite/gun/smooth.emitting = true
-		
-		var bullet = load("res://bullet.tscn")
-		
-		if shotgun:
-			for i in range(0, 3):
+		if ammo > 0:
+			$shoot.pitch_scale = randf_range(0.9, 1.1)
+			$shoot.play()
+			#$item.play("item_use")
+			#if Global.particles:
+			#	$Sprite/gun/smooth.emitting = true
+			var bullet = load("res://bullet.tscn")
+			
+			if shotgun:
+				for i in range(0, 3):
+					var obj = bullet.instantiate()
+					if death_blt:
+						obj.insta_kill = true
+					if piercing_blt:
+						obj.piercing = true
+					obj.rotation = $Sprite/gun.rotation + (i * 10) - 10
+					obj.global_position = get_node("Sprite/gun/aim_shotgun" + str(i+1)).global_position
+					obj.direction = get_node("Sprite/gun/aim_shotgun" + str(i+1)).global_position - $Sprite/gun.global_position
+					
+					get_parent().call_deferred("add_child", obj)
+					
+					if double_blt:
+						var bullet2 = bullet.instantiate()
+						if death_blt:
+							bullet2.insta_kill = true
+						if piercing_blt:
+							bullet2.piercing = true
+						bullet2.rotation = $Sprite/gun.rotation
+						bullet2.global_position = get_node("Sprite/gun/aim_shotgun" + str(i+1)).global_position + Vector2(-8, 0)
+						bullet2.direction = get_node("Sprite/gun/aim_shotgun" + str(i+1)).global_position - $Sprite/gun.global_position
+						get_parent().call_deferred("add_child", bullet2)
+			
+			else:
 				var obj = bullet.instantiate()
 				if death_blt:
 					obj.insta_kill = true
 				if piercing_blt:
 					obj.piercing = true
-				obj.rotation = $Sprite/gun.rotation + (i * 10) - 10
-				obj.global_position = get_node("Sprite/gun/aim_shotgun" + str(i+1)).global_position
-				obj.direction = get_node("Sprite/gun/aim_shotgun" + str(i+1)).global_position - $Sprite/gun.global_position
+				obj.rotation = $Sprite/gun.rotation
+				obj.global_position = $Sprite/gun/aim.global_position
+				obj.direction = $Sprite/gun/aim.global_position - $Sprite/gun.global_position
 				
 				get_parent().call_deferred("add_child", obj)
 				
@@ -187,43 +216,31 @@ func Action():
 					if piercing_blt:
 						bullet2.piercing = true
 					bullet2.rotation = $Sprite/gun.rotation
-					bullet2.global_position = get_node("Sprite/gun/aim_shotgun" + str(i+1)).global_position + Vector2(-8, 0)
-					bullet2.direction = get_node("Sprite/gun/aim_shotgun" + str(i+1)).global_position - $Sprite/gun.global_position
+					bullet2.global_position = $Sprite/gun/aim.global_position + Vector2(-8, 0)
+					bullet2.direction = $Sprite/gun/aim.global_position - $Sprite/gun.global_position
 					get_parent().call_deferred("add_child", bullet2)
-		
-		
+			
+			if not infinity_blt:
+				ammo -= 1
 		else:
-			var obj = bullet.instantiate()
-			if death_blt:
-				obj.insta_kill = true
-			if piercing_blt:
-				obj.piercing = true
-			obj.rotation = $Sprite/gun.rotation
-			obj.global_position = $Sprite/gun/aim.global_position
-			obj.direction = $Sprite/gun/aim.global_position - $Sprite/gun.global_position
-			
-			get_parent().call_deferred("add_child", obj)
-			
-			if double_blt:
-				var bullet2 = bullet.instantiate()
-				if death_blt:
-					bullet2.insta_kill = true
-				if piercing_blt:
-					bullet2.piercing = true
-				bullet2.rotation = $Sprite/gun.rotation
-				bullet2.global_position = $Sprite/gun/aim.global_position + Vector2(-8, 0)
-				bullet2.direction = $Sprite/gun/aim.global_position - $Sprite/gun.global_position
-				get_parent().call_deferred("add_child", bullet2)
+			$no_ammo.pitch_scale = randf_range(0.9, 1.1)
+			$no_ammo.play()
+			ammo = 24
+			$Sprite/NoBullet.emitting = true
+			$item.play("reload")
 		
 	elif tool == "ham":
 		if mouse_in_area:
+			$place.pitch_scale = randf_range(0.9, 1.1)
 			$place.play()
 			var pos = Floor.local_to_map(get_global_mouse_position())
 			if pos.x >= 26 and pos.x <= 72:
 				if pos.y >= 19 and pos.y <= 50:
 					#print(Floor.get_cell_atlas_coords(0, pos))
-					if Floor.get_cell_atlas_coords(0, pos) == Vector2i(1,0):
+					if Floor.get_cell_atlas_coords(0, pos) == Vector2i(1,0) and quant_woods > 0:
 						Floor.set_cell(0, pos, 0, Vector2i(0, 0))
+						quant_woods -= 1
+						$Ui/woods.text = "       x" + str(quant_woods)
 						if tile_lover:
 							Global.last_score += 1
 	pass
@@ -245,11 +262,13 @@ func verify_power_ups():
 	piercing_blt   = false
 	shotgun        = false
 	tile_lover     = false
+	infinity_blt   = false
 	# ================== #
 	
 	# === Others ======= #
-	$Sprite/gun.texture = load("res://imgs/plyr_1.png")
+	$Sprite/gun.texture = load("res://imgs/pistol.png")
 	set_collision_mask_value(2, true)
+	$construct_area.scale = Vector2i(1, 1)
 	# ================== #
 	
 	for i in range(0, 3):
@@ -269,7 +288,7 @@ func verify_power_ups():
 				double_blt = true
 			"5":
 				shotgun = true
-				$Sprite/gun.texture = load("res://imgs/plyr_3.png")
+				$Sprite/gun.texture = load("res://imgs/shotgun.png")
 			"6":
 				tile_lover = true
 			"7":
@@ -279,17 +298,29 @@ func verify_power_ups():
 				$Ui/HpBar.value = HP
 			"8":
 				lava_no_damage = true
+			"9":
+				infinity_blt = true
+			"10":
+				get_wood(1)
+			"11":
+				$construct_area.scale = Vector2i(2,2)
 			_:
 				print_rich("[color=red]WTF, pq deu isso?[/color]")
+	pass
+
+func get_wood(x):
+	quant_woods += x
+	$Ui/woods.text = "       x" + str(quant_woods)
 	pass
 
 func power_up():
 	get_tree().paused = true
 	$Ui/PowerUpMenu.show()
 	
-	var pw1 = randi_range(0, 8)
-	var pw2 = randi_range(0, 8)
-	var pw3 = randi_range(0, 8)
+	var quant_power_ups = 11
+	var pw1 = randi_range(0, quant_power_ups)
+	var pw2 = randi_range(0, quant_power_ups)
+	var pw3 = randi_range(0, quant_power_ups)
 	
 	$Ui/PowerUpMenu/PowerUp1.text = ".\n.\n.\n.\n.\n-----------------" + pul[str(pw1)][0]
 	$Ui/PowerUpMenu/PowerUp1/card.frame = pw1
@@ -391,3 +422,11 @@ func mouse_entered():
 func mouse_exited():
 	mouse_in_area = false
 	pass # Replace with function body.
+
+
+func _on_cancel_pressed() -> void:
+	count = 0
+	get_tree().paused = false
+	$Ui/PowerUpMenu.hide()
+	verify_power_ups()
+	pass
