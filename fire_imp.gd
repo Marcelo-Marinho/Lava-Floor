@@ -45,6 +45,8 @@ func _on_spawn_timeout() -> void:
 func dmg(x):
 	HP -= x
 	
+	
+	
 	if not Global.animations:
 		$HP_bar.visible = true
 		$HP_bar.value = HP

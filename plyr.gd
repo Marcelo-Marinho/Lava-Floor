@@ -174,6 +174,7 @@ func Action():
 			var bullet = load("res://bullet.tscn")
 			
 			if shotgun:
+				$camera.play("shake_cam")
 				for i in range(0, 3):
 					var obj = bullet.instantiate()
 					if death_blt:
@@ -252,6 +253,8 @@ func _on_lava_dmg_timer_timeout() -> void:
 	pass # Replace with function body.
 	
 	
+func shake_cam():
+	$cam.offset = Vector2(randf_range(-1, 1), randf_range(-1, 1))
 
 func verify_power_ups():
 	# == False all ===== #

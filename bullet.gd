@@ -27,9 +27,21 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		var dmg_blt = [1, 1, 1, 1, 2, 1, 1, 1, 2, 5]
 		dmg_blt.shuffle()
-		body.dmg(dmg_blt[0])
+		var damage = dmg_blt[0]
+		body.dmg(damage)
 		if insta_kill:
+			damage = 999
 			body.dmg(999)
+		
+		if damage == 1:
+			$dmg.texture = load("res://imgs/dmg0.png")
+		elif damage == 2:
+			$dmg.texture = load("res://imgs/dmg1.png")
+		elif damage == 5:
+			$dmg.texture = load("res://imgs/dmg2.png")
+		elif damage == 999:
+			$dmg.texture = load("res://imgs/dmg3.png")
+		$dmg.emitting = true
 		
 		if not piercing:
 			$area.set_deferred("disable", true)
