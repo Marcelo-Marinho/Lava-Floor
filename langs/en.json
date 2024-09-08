@@ -12,7 +12,10 @@
 		"8": ["Hot shower", "Don't take damage in lava"],
 		"9": ["Infinity bullets", "Shoot without spend bullets"],
 		"10": ["Lumberjack", "Get 1 wood in every power up"],
-		"11": ["Domain expansion", "Get a bigger building area"]
+		"11": ["Domain expansion", "Get a bigger building area"],
+		"12": ["Miner Zombie", "Add more chance to spawn Miner Zombie! \nThey like to break blocks, but don't play minecraft"],
+		"13": ["Buff Shark", "Add more chance to spawn Buff Shark! \nThe sharks evolveds to swin in lava... WHAT?"],
+		"14": ["Fire Imp", "Add more chance to spawn Fire Imp!\nA basic enemy to kill you"]
 	},
 	
 	"Hud": {

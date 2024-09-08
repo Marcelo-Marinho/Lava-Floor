@@ -12,7 +12,10 @@
 		"8": ["Banho quente", "Não tome dano ao cair na lava"],
 		"9": ["Chumbo infinito", "Mete bala nos inimigos sem recarregar"],
 		"10": ["Lenhador", "Ganhe uma madeira a cada power up"],
-		"11": ["Expansão de domínio", "Construa em uma maior área"]
+		"11": ["Expansão de domínio", "Construa em uma maior área"],
+		"12": ["Zumbi Mineiro", "Adiciona mais chance do Zumbi Mineiro surgir!\nEle não fala \"Uai\""],
+		"13": ["Tubarão de Academia", "Adiciona mais chance do Tubarão de Academia surgir!\nEles evoluiram para nadar na lava... O QUE?"],
+		"14": ["Demônio da Brasa", "Adiciona mais chance do Demônio da Brasa surgir!\nUm inimigo básico para te matar"]
 	},
 	
 	"Hud": {

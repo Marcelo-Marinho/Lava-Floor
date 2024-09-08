@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var enemies_possible = ["fire_imp"]
+
 func _ready() -> void:
 	if Global.music:
 		$bgMusic.play()
@@ -26,6 +28,13 @@ func colorChange(c):
 	modulate = cor
 	$Plyr/Ui/border.modulate = cor
 	$Plyr/Ui/HpBar/icon.modulate = cor
+	$Plyr/Ui/woods/icon.modulate = cor
+	$Plyr/Ui/Card1.modulate = cor
+	$Plyr/Ui/Card2.modulate = cor
+	$Plyr/Ui/Card3.modulate = cor
+	$Plyr/Ui/PowerUpMenu/PowerUp1/card.modulate = cor
+	$Plyr/Ui/PowerUpMenu/PowerUp2/card.modulate = cor
+	$Plyr/Ui/PowerUpMenu/PowerUp3/card.modulate = cor
 	
 	if not Global.border:
 		$Plyr/construct_area/border.queue_free()
@@ -35,7 +44,6 @@ func colorChange(c):
 func _on_timer_timeout() -> void:
 	randomize()
 	
-	var enemies_possible = ["fire_imp", "zombie_mine", "sharkBuff"]
 	enemies_possible.shuffle()
 	var enemy = load("res://" + enemies_possible[0] + ".tscn")
 		

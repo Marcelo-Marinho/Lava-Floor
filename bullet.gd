@@ -25,9 +25,10 @@ func _on_body_entered(body: Node2D) -> void:
 		$death.pitch_scale = randf_range(0.9, 1.1)
 		$death.play()
 		
+		var dmg_blt = [1, 1, 1, 1, 2, 1, 1, 1, 2, 5]
 		body.dmg(1)
 		if insta_kill:
-			body.dmg(9999)
+			body.dmg(999)
 		
 		if not piercing:
 			$area.set_deferred("disable", true)

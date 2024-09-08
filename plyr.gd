@@ -304,6 +304,8 @@ func verify_power_ups():
 				get_wood(1)
 			"11":
 				$construct_area.scale = Vector2i(2,2)
+			"12", "13", "14":
+				pass
 			_:
 				print_rich("[color=red]WTF, pq deu isso?[/color]")
 	pass
@@ -317,7 +319,7 @@ func power_up():
 	get_tree().paused = true
 	$Ui/PowerUpMenu.show()
 	
-	var quant_power_ups = 11
+	var quant_power_ups = 14
 	var pw1 = randi_range(0, quant_power_ups)
 	var pw2 = randi_range(0, quant_power_ups)
 	var pw3 = randi_range(0, quant_power_ups)
@@ -330,7 +332,7 @@ func power_up():
 	
 	$Ui/PowerUpMenu/PowerUp3.text = ".\n.\n.\n.\n.\n-----------------" + pul[str(pw3)][0]
 	$Ui/PowerUpMenu/PowerUp3/card.frame = pw3
-	
+	 
 	pass
 
 func _on_power_up_1_pressed() -> void:
@@ -339,6 +341,15 @@ func _on_power_up_1_pressed() -> void:
 		temp = $Ui/PowerUpMenu/PowerUp1/card.frame
 		set_back()
 		count = 1
+		
+		var Game = get_parent()
+		match temp:
+			12:
+				Game.enemies_possible.append("zombie_mine")
+			13:
+				Game.enemies_possible.append("sharkBuff")
+			14:
+				Game.enemies_possible.append("fire_imp")
 		
 	elif count == 1:
 		$Ui/Card1.frame = temp
@@ -355,6 +366,15 @@ func _on_power_up_2_pressed() -> void:
 		set_back()
 		count = 1
 		
+		var Game = get_parent()
+		match temp:
+			12:
+				Game.enemies_possible.append("zombie_mine")
+			13:
+				Game.enemies_possible.append("sharkBuff")
+			14:
+				Game.enemies_possible.append("fire_imp")
+		
 	elif count == 1:
 		$Ui/Card2.frame = temp
 		power_ups_enabled[1] = str(temp)
@@ -369,6 +389,15 @@ func _on_power_up_3_pressed() -> void:
 		temp = $Ui/PowerUpMenu/PowerUp3/card.frame
 		set_back()
 		count = 1
+		
+		var Game = get_parent()
+		match temp:
+			12:
+				Game.enemies_possible.append("zombie_mine")
+			13:
+				Game.enemies_possible.append("sharkBuff")
+			14:
+				Game.enemies_possible.append("fire_imp")
 		
 	elif count == 1:
 		$Ui/Card3.frame = temp

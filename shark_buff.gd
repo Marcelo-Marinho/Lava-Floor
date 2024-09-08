@@ -72,7 +72,7 @@ func dmg(x):
 		$HP_bar.visible = false
 		
 	if HP <= 0:
-		Global.last_score += 1
+		Global.last_score += 10
 		var choose_drop = randi_range(0, len(possible_drops) - 1)
 		
 		var p = randi_range(0, 99)
