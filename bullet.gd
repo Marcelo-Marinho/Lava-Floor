@@ -26,7 +26,8 @@ func _on_body_entered(body: Node2D) -> void:
 		$death.play()
 		
 		var dmg_blt = [1, 1, 1, 1, 2, 1, 1, 1, 2, 5]
-		body.dmg(1)
+		dmg_blt.shuffle()
+		body.dmg(dmg_blt[0])
 		if insta_kill:
 			body.dmg(999)
 		
