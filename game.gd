@@ -35,6 +35,9 @@ func colorChange(c):
 	$Plyr/Ui/PowerUpMenu/PowerUp1/card.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp2/card.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp3/card.modulate = cor
+	$Plyr/Ui/PowerUpMenu/PowerUp1/subcard.modulate = cor
+	$Plyr/Ui/PowerUpMenu/PowerUp2/subcard.modulate = cor
+	$Plyr/Ui/PowerUpMenu/PowerUp3/subcard.modulate = cor
 	
 	if not Global.border:
 		$Plyr/construct_area/border.queue_free()
@@ -54,7 +57,16 @@ func _on_timer_timeout() -> void:
 	obj.global_position = pos_sapwn
 	call_deferred("add_child", obj)
 	
-	$Timer.start(randf_range(0.5, 2.5))
+	if Global.last_score < 500:
+		$Timer.start(randf_range(0.5, 2.5))
+	elif Global.last_score >= 500 and Global.last_score < 1000:
+		$Timer.start(randf_range(0.5, 2))
+	elif Global.last_score >= 1000 and Global.last_score < 2000:
+		$Timer.start(randf_range(0.25, 1.5))
+	elif Global.last_score >= 2000 and Global.last_score < 2500:
+		$Timer.start(randf_range(0.25, 1))
+	else:
+		$Timer.start(randf_range(0.1, 0.75))
 	pass # Replace with function body.
 
 

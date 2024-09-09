@@ -15,12 +15,6 @@
 [ext_resource type="AudioStream" uid="uid://c3us2ixdsvrgc" path="res://sounds/no_ammo.wav" id="13_d4a0m"]
 [ext_resource type="AudioStream" uid="uid://bl1mi66gn85oo" path="res://sounds/plyr_place.wav" id="14_o5yl0"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4imq8"]
-radius = 32.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fs5h"]
-size = Vector2(12, 12)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_famrr"]
 bg_color = Color(0.121569, 0.0431373, 0, 1)
 border_width_left = 5
@@ -38,6 +32,12 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.65098, 0.121569, 0.0588235, 1)
 border_blend = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4imq8"]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fs5h"]
+size = Vector2(12, 12)
 
 [sub_resource type="Animation" id="Animation_n6lka"]
 length = 0.001
@@ -304,6 +304,21 @@ _data = {
 "reload": SubResource("Animation_k1ka6")
 }
 
+[sub_resource type="Animation" id="Animation_ejpwl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cam:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_7cj0g"]
 resource_name = "shake_cam"
 length = 0.25
@@ -344,21 +359,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_ejpwl"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("cam:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ixwt"]
 _data = {
 "RESET": SubResource("Animation_ejpwl"),
@@ -368,75 +368,6 @@ _data = {
 [node name="Plyr" type="CharacterBody2D" groups=["plyr"]]
 collision_mask = 11
 script = ExtResource("1_ju0ca")
-
-[node name="construct_area" type="Area2D" parent="."]
-
-[node name="border" type="Sprite2D" parent="construct_area"]
-modulate = Color(1, 1, 1, 0.482353)
-texture = ExtResource("2_l0dve")
-
-[node name="area" type="CollisionShape2D" parent="construct_area"]
-shape = SubResource("CircleShape2D_4imq8")
-
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("3_de3j3")
-
-[node name="gun" type="Sprite2D" parent="Sprite"]
-texture = ExtResource("4_q3ly8")
-
-[node name="aim" type="Node2D" parent="Sprite/gun"]
-position = Vector2(8, 0)
-
-[node name="aim_shotgun1" type="Node2D" parent="Sprite/gun"]
-position = Vector2(12, -1)
-rotation = -0.174533
-
-[node name="aim_shotgun2" type="Node2D" parent="Sprite/gun"]
-position = Vector2(12, 0)
-
-[node name="aim_shotgun3" type="Node2D" parent="Sprite/gun"]
-position = Vector2(12, 1)
-rotation = 0.174533
-
-[node name="smooth" type="CPUParticles2D" parent="Sprite/gun"]
-position = Vector2(8, 0)
-emitting = false
-amount = 3
-lifetime = 2.5
-one_shot = true
-explosiveness = 1.0
-randomness = 0.5
-lifetime_randomness = 0.75
-gravity = Vector2(0, -5)
-initial_velocity_max = 15.0
-orbit_velocity_min = -2.5
-orbit_velocity_max = 2.5
-scale_amount_min = 0.25
-scale_amount_max = 1.5
-
-[node name="ham" type="Sprite2D" parent="Sprite"]
-visible = false
-texture = ExtResource("5_w74yx")
-
-[node name="NoBullet" type="CPUParticles2D" parent="Sprite"]
-position = Vector2(0, -16)
-emitting = false
-amount = 1
-lifetime = 0.75
-one_shot = true
-texture = ExtResource("6_7jipd")
-gravity = Vector2(0, -32)
-scale_amount_min = 0.9
-scale_amount_max = 1.1
-color = Color(1, 0.470588, 0.470588, 1)
-
-[node name="col" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("RectangleShape2D_5fs5h")
-
-[node name="cam" type="Camera2D" parent="."]
-limit_smoothed = true
-position_smoothing_enabled = true
 
 [node name="Ui" type="CanvasLayer" parent="."]
 
@@ -567,6 +498,15 @@ texture = ExtResource("10_h2r2p")
 hframes = 5
 vframes = 3
 
+[node name="subcard" type="Sprite2D" parent="Ui/PowerUpMenu/PowerUp1"]
+visible = false
+position = Vector2(96, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("10_h2r2p")
+hframes = 5
+vframes = 3
+frame = 14
+
 [node name="PowerUp2" type="Button" parent="Ui/PowerUpMenu"]
 process_mode = 2
 layout_mode = 1
@@ -598,6 +538,15 @@ texture = ExtResource("10_h2r2p")
 hframes = 5
 vframes = 3
 
+[node name="subcard" type="Sprite2D" parent="Ui/PowerUpMenu/PowerUp2"]
+visible = false
+position = Vector2(96, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("10_h2r2p")
+hframes = 5
+vframes = 3
+frame = 14
+
 [node name="PowerUp3" type="Button" parent="Ui/PowerUpMenu"]
 process_mode = 2
 layout_mode = 1
@@ -628,6 +577,15 @@ scale = Vector2(4, 4)
 texture = ExtResource("10_h2r2p")
 hframes = 5
 vframes = 3
+
+[node name="subcard" type="Sprite2D" parent="Ui/PowerUpMenu/PowerUp3"]
+visible = false
+position = Vector2(96, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("10_h2r2p")
+hframes = 5
+vframes = 3
+frame = 12
 
 [node name="Info" type="Label" parent="Ui/PowerUpMenu"]
 layout_mode = 1
@@ -662,6 +620,76 @@ grow_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 text = "Cancel"
+
+[node name="construct_area" type="Area2D" parent="." groups=["plyr"]]
+
+[node name="border" type="Sprite2D" parent="construct_area"]
+modulate = Color(1, 1, 1, 0.482353)
+texture = ExtResource("2_l0dve")
+
+[node name="area" type="CollisionShape2D" parent="construct_area"]
+shape = SubResource("CircleShape2D_4imq8")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_de3j3")
+
+[node name="gun" type="Sprite2D" parent="Sprite"]
+texture = ExtResource("4_q3ly8")
+
+[node name="aim" type="Node2D" parent="Sprite/gun"]
+position = Vector2(8, 0)
+
+[node name="aim_shotgun1" type="Node2D" parent="Sprite/gun"]
+position = Vector2(12, -1)
+rotation = -0.174533
+
+[node name="aim_shotgun2" type="Node2D" parent="Sprite/gun"]
+position = Vector2(12, 0)
+
+[node name="aim_shotgun3" type="Node2D" parent="Sprite/gun"]
+position = Vector2(12, 1)
+rotation = 0.174533
+
+[node name="smooth" type="CPUParticles2D" parent="Sprite/gun"]
+position = Vector2(8, 0)
+emitting = false
+amount = 3
+lifetime = 2.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+lifetime_randomness = 0.75
+gravity = Vector2(0, -5)
+initial_velocity_max = 15.0
+orbit_velocity_min = -2.5
+orbit_velocity_max = 2.5
+scale_amount_min = 0.25
+scale_amount_max = 1.5
+
+[node name="ham" type="Sprite2D" parent="Sprite"]
+visible = false
+texture = ExtResource("5_w74yx")
+
+[node name="NoBullet" type="CPUParticles2D" parent="Sprite"]
+position = Vector2(0, -16)
+emitting = false
+amount = 1
+lifetime = 0.75
+one_shot = true
+texture = ExtResource("6_7jipd")
+gravity = Vector2(0, -32)
+scale_amount_min = 0.9
+scale_amount_max = 1.1
+color = Color(1, 0.470588, 0.470588, 1)
+
+[node name="col" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_5fs5h")
+
+[node name="cam" type="Camera2D" parent="."]
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
 
 [node name="dmg" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_4cfcn")
@@ -709,8 +737,6 @@ libraries = {
 "": SubResource("AnimationLibrary_3ixwt")
 }
 
-[connection signal="mouse_entered" from="construct_area" to="." method="mouse_entered"]
-[connection signal="mouse_exited" from="construct_area" to="." method="mouse_exited"]
 [connection signal="mouse_entered" from="Ui/PowerUpMenu/PowerUp1" to="." method="_on_power_up_1_mouse_entered"]
 [connection signal="mouse_exited" from="Ui/PowerUpMenu/PowerUp1" to="." method="exited"]
 [connection signal="pressed" from="Ui/PowerUpMenu/PowerUp1" to="." method="_on_power_up_1_pressed"]
@@ -721,4 +747,6 @@ libraries = {
 [connection signal="mouse_exited" from="Ui/PowerUpMenu/PowerUp3" to="." method="exited"]
 [connection signal="pressed" from="Ui/PowerUpMenu/PowerUp3" to="." method="_on_power_up_3_pressed"]
 [connection signal="pressed" from="Ui/PowerUpMenu/cancel" to="." method="_on_cancel_pressed"]
+[connection signal="mouse_entered" from="construct_area" to="." method="mouse_entered"]
+[connection signal="mouse_exited" from="construct_area" to="." method="mouse_exited"]
 [connection signal="timeout" from="lava_dmg_timer" to="." method="_on_lava_dmg_timer_timeout"]

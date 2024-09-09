@@ -327,6 +327,17 @@ func power_up():
 	var pw2 = randi_range(0, quant_power_ups)
 	var pw3 = randi_range(0, quant_power_ups)
 	
+	var visible_or_no   = [true, true, true, false, false, false, false, false]
+	var enemies_subcard = [12, 12, 12, 13, 13, 13, 14, 14, 14]
+	visible_or_no.shuffle()
+	enemies_subcard.shuffle()
+	$Ui/PowerUpMenu/PowerUp1/subcard.visible = visible_or_no[0]
+	$Ui/PowerUpMenu/PowerUp2/subcard.visible = visible_or_no[1]
+	$Ui/PowerUpMenu/PowerUp3/subcard.visible = visible_or_no[2]
+	$Ui/PowerUpMenu/PowerUp1/subcard.frame = enemies_subcard[0]
+	$Ui/PowerUpMenu/PowerUp2/subcard.frame = enemies_subcard[1]
+	$Ui/PowerUpMenu/PowerUp3/subcard.frame = enemies_subcard[2]
+	
 	$Ui/PowerUpMenu/PowerUp1.text = ".\n.\n.\n.\n.\n-----------------" + pul[str(pw1)][0]
 	$Ui/PowerUpMenu/PowerUp1/card.frame = pw1
 	
@@ -342,18 +353,45 @@ func _on_power_up_1_pressed() -> void:
 	
 	if count == 0:
 		temp = $Ui/PowerUpMenu/PowerUp1/card.frame
-		set_back()
-		count = 1
 		
 		var Game = get_parent()
 		match temp:
 			12:
 				Game.enemies_possible.append("zombie_mine")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
 			13:
 				Game.enemies_possible.append("sharkBuff")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
 			14:
 				Game.enemies_possible.append("fire_imp")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
+			_:
+				count = 1
 		
+		var subcard = $Ui/PowerUpMenu/PowerUp1/subcard
+		if subcard.visible:
+			var enemy = subcard.frame
+			match enemy:
+				12:
+					Game.enemies_possible.append("zombie_mine")
+				13:
+					Game.enemies_possible.append("sharkBuff")
+				14:
+					Game.enemies_possible.append("fire_imp")
+				_:
+					print("Nothing")
+			
+		set_back()
+			
 	elif count == 1:
 		$Ui/Card1.frame = temp
 		power_ups_enabled[0] = str(temp)
@@ -366,17 +404,45 @@ func _on_power_up_1_pressed() -> void:
 func _on_power_up_2_pressed() -> void:
 	if count == 0:
 		temp = $Ui/PowerUpMenu/PowerUp2/card.frame
-		set_back()
-		count = 1
 		
 		var Game = get_parent()
 		match temp:
 			12:
 				Game.enemies_possible.append("zombie_mine")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
 			13:
 				Game.enemies_possible.append("sharkBuff")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
 			14:
 				Game.enemies_possible.append("fire_imp")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
+			_:
+				count = 1
+		
+		var subcard = $Ui/PowerUpMenu/PowerUp2/subcard
+		#print("subcard 2: ", subcard.visible)
+		if subcard.visible:
+			var enemy = subcard.frame
+			match enemy:
+				12:
+					Game.enemies_possible.append("zombie_mine")
+				13:
+					Game.enemies_possible.append("sharkBuff")
+				14:
+					Game.enemies_possible.append("fire_imp")
+				_:
+					print("Nothing")
+		
+		set_back()
 		
 	elif count == 1:
 		$Ui/Card2.frame = temp
@@ -390,17 +456,44 @@ func _on_power_up_2_pressed() -> void:
 func _on_power_up_3_pressed() -> void:
 	if count == 0:
 		temp = $Ui/PowerUpMenu/PowerUp3/card.frame
-		set_back()
-		count = 1
 		
 		var Game = get_parent()
 		match temp:
 			12:
 				Game.enemies_possible.append("zombie_mine")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
 			13:
 				Game.enemies_possible.append("sharkBuff")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
 			14:
 				Game.enemies_possible.append("fire_imp")
+				count = 0
+				get_tree().paused = false
+				$Ui/PowerUpMenu.hide()
+				verify_power_ups()
+			_:
+				count = 1
+		
+		var subcard = $Ui/PowerUpMenu/PowerUp3/subcard
+		if subcard.visible:
+			var enemy = subcard.frame
+			match enemy:
+				12:
+					Game.enemies_possible.append("zombie_mine")
+				13:
+					Game.enemies_possible.append("sharkBuff")
+				14:
+					Game.enemies_possible.append("fire_imp")
+				_:
+					print("Nothing")
+		
+		set_back()
 		
 	elif count == 1:
 		$Ui/Card3.frame = temp
@@ -415,6 +508,10 @@ func set_back():
 	var pw1 = $Ui/Card1.frame
 	var pw2 = $Ui/Card2.frame
 	var pw3 = $Ui/Card3.frame
+	
+	$Ui/PowerUpMenu/PowerUp1/subcard.visible = false
+	$Ui/PowerUpMenu/PowerUp2/subcard.visible = false
+	$Ui/PowerUpMenu/PowerUp3/subcard.visible = false
 	
 	$Ui/PowerUpMenu/PowerUp1.text = ".\n.\n.\n.\n.\n-----------------" + pul[str(pw1)][0]
 	$Ui/PowerUpMenu/PowerUp1/card.frame = pw1
