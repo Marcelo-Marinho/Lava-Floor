@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://plyr.gd" id="1_ju0ca"]
 [ext_resource type="Texture2D" uid="uid://cx2kx8r5ggc02" path="res://imgs/border_construct.png" id="2_l0dve"]
 [ext_resource type="Texture2D" uid="uid://b2ar0x3yyw00q" path="res://imgs/plyr_0.png" id="3_de3j3"]
-[ext_resource type="Texture2D" uid="uid://0fx7wmx4o5tg" path="res://imgs/plyr_1.png" id="4_q3ly8"]
-[ext_resource type="Texture2D" uid="uid://cs2gn7xivhb58" path="res://imgs/plyr_2.png" id="5_w74yx"]
 [ext_resource type="Texture2D" uid="uid://bt7wyrywvm2fk" path="res://imgs/noBullet.png" id="6_7jipd"]
 [ext_resource type="Texture2D" uid="uid://cebf6e2nbguxq" path="res://imgs/border.png" id="7_yilny"]
+[ext_resource type="Texture2D" uid="uid://csaghg2v0ai18" path="res://imgs/pistol.png" id="8_3b8yw"]
 [ext_resource type="Texture2D" uid="uid://cvxact573lrin" path="res://imgs/Icon.png" id="8_tosa0"]
 [ext_resource type="Texture2D" uid="uid://drwaei8svgkiq" path="res://imgs/wood_drop.png" id="9_3docy"]
+[ext_resource type="Texture2D" uid="uid://mq64qehx1j6i" path="res://imgs/hammer.png" id="9_yef4c"]
 [ext_resource type="Texture2D" uid="uid://dmhanr4srwbj8" path="res://imgs/powerUp_cards.png" id="10_h2r2p"]
 [ext_resource type="AudioStream" uid="uid://dsyf022eu8qsf" path="res://sounds/plyr_dmg.wav" id="11_4cfcn"]
 [ext_resource type="AudioStream" uid="uid://cvi5o0qv2slj5" path="res://sounds/plyr_shoot.wav" id="12_k2a61"]
@@ -634,7 +634,7 @@ shape = SubResource("CircleShape2D_4imq8")
 texture = ExtResource("3_de3j3")
 
 [node name="gun" type="Sprite2D" parent="Sprite"]
-texture = ExtResource("4_q3ly8")
+texture = ExtResource("8_3b8yw")
 
 [node name="aim" type="Node2D" parent="Sprite/gun"]
 position = Vector2(8, 0)
@@ -668,7 +668,7 @@ scale_amount_max = 1.5
 
 [node name="ham" type="Sprite2D" parent="Sprite"]
 visible = false
-texture = ExtResource("5_w74yx")
+texture = ExtResource("9_yef4c")
 
 [node name="NoBullet" type="CPUParticles2D" parent="Sprite"]
 position = Vector2(0, -16)
