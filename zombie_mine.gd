@@ -95,3 +95,10 @@ func _on_sprite_animation_finished(anim_name: StringName) -> void:
 		$Sprite.play("default")
 		tile.set_cell(0, pos, 0, Vector2i(1, 0))
 	pass # Replace with function body.
+
+
+func _on_area_dmg_area_entered(area: Area2D) -> void:
+	if area.is_in_group("plyr"):
+		if spawn_protection:
+			dmg(999)
+	pass # Replace with function body.

@@ -75,3 +75,10 @@ func _on_area_dmg_body_entered(body: Node2D) -> void:
 		else:
 			body.dmg(2.5)
 	pass # Replace with function body.
+
+
+func _on_area_dmg_area_entered(area: Area2D) -> void:
+	if area.is_in_group("plyr"):
+		if spawn_protection:
+			dmg(999)
+	pass # Replace with function body.

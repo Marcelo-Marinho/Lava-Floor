@@ -38,6 +38,7 @@ func colorChange(c):
 	$Plyr/Ui/PowerUpMenu/PowerUp1/subcard.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp2/subcard.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp3/subcard.modulate = cor
+	$Plyr/Ui/tool.modulate = cor
 	
 	if not Global.border:
 		$Plyr/construct_area/border.queue_free()
@@ -57,14 +58,20 @@ func _on_timer_timeout() -> void:
 	obj.global_position = pos_sapwn
 	call_deferred("add_child", obj)
 	
-	if Global.last_score < 500:
+	if Global.last_score < 100:
 		$Timer.start(randf_range(0.5, 2.5))
-	elif Global.last_score >= 500 and Global.last_score < 1000:
+	elif Global.last_score >= 100 and Global.last_score < 500:
 		$Timer.start(randf_range(0.5, 2))
+		if not enemies_possible.has("zombie_mine"):
+			enemies_possible.append("zombie_mine")
+	elif Global.last_score >= 500 and Global.last_score < 1000:
+		$Timer.start(randf_range(0.5, 1.75))
 	elif Global.last_score >= 1000 and Global.last_score < 2000:
 		$Timer.start(randf_range(0.25, 1.5))
 	elif Global.last_score >= 2000 and Global.last_score < 2500:
 		$Timer.start(randf_range(0.25, 1))
+		if not enemies_possible.has("sharkBuff"):
+			enemies_possible.append("sharkBuff")
 	else:
 		$Timer.start(randf_range(0.1, 0.75))
 	pass # Replace with function body.
@@ -72,4 +79,9 @@ func _on_timer_timeout() -> void:
 
 func _on_bg_music_finished() -> void:
 	$bgMusic.play()
+	pass # Replace with function body.
+
+
+func _on_menu_music_finished() -> void:
+	$menuMusic.play()
 	pass # Replace with function body.

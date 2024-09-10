@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://chtk44e0oxoly"]
+[gd_scene load_steps=33 format=3 uid="uid://chtk44e0oxoly"]
 
 [ext_resource type="Script" path="res://plyr.gd" id="1_ju0ca"]
 [ext_resource type="Texture2D" uid="uid://cx2kx8r5ggc02" path="res://imgs/border_construct.png" id="2_l0dve"]
 [ext_resource type="Texture2D" uid="uid://b2ar0x3yyw00q" path="res://imgs/plyr_0.png" id="3_de3j3"]
+[ext_resource type="Texture2D" uid="uid://db2iajwq8287j" path="res://imgs/hud_item.png" id="6_3mron"]
 [ext_resource type="Texture2D" uid="uid://bt7wyrywvm2fk" path="res://imgs/noBullet.png" id="6_7jipd"]
 [ext_resource type="Texture2D" uid="uid://cebf6e2nbguxq" path="res://imgs/border.png" id="7_yilny"]
 [ext_resource type="Texture2D" uid="uid://csaghg2v0ai18" path="res://imgs/pistol.png" id="8_3b8yw"]
@@ -608,6 +609,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cancel" type="Button" parent="Ui/PowerUpMenu"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -619,7 +621,14 @@ offset_bottom = -5.0
 grow_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
+disabled = true
 text = "Cancel"
+
+[node name="tool" type="Sprite2D" parent="Ui"]
+position = Vector2(168, 12)
+texture = ExtResource("6_3mron")
+hframes = 2
+frame = 1
 
 [node name="construct_area" type="Area2D" parent="." groups=["plyr"]]
 

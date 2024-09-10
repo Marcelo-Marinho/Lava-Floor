@@ -13,7 +13,7 @@ var count = 0
 var mouse_in_area = false
 
 var in_lava = false
-
+var browser = true
 
 # power up list
 var power_ups_enabled = ["0", "0", "0"]
@@ -35,12 +35,37 @@ var infinity_blt   = false
 
 func _ready() -> void:
 	
-	var file = "langs/" + Global.lang + ".json"
-	var json_as_text = FileAccess.get_file_as_string(file)
-	var json_as_dict = JSON.parse_string(json_as_text)
-	if json_as_dict:
-		#print(json_as_dict["power_ups"])
-		pul = json_as_dict["power_ups"]
+	if not browser:
+		var load_file = load("res://langs/en.json")
+		var load_file_2 = load("res://langs/pt-br.json")
+		
+		var loadig_file = load("res://langs/" + Global.lang + ".json")
+		var file = loadig_file.resource_path
+		var json_as_text = FileAccess.get_file_as_string(file)
+		var json_as_dict = JSON.parse_string(json_as_text)
+		if json_as_dict:
+			#print(json_as_dict["power_ups"])
+			pul = json_as_dict["power_ups"]
+	
+	if pul["0"][0] == "" or pul["0"][0] == " " or pul["0"][0] == null or browser:
+		pul = {
+		"0": ["Nothing Nothing", "Does nothing..."],
+		"1": ["Iron Iron feet", "You can walk in lava"],
+		"2": ["Death Death bullet", "One shoot to kill any enemy, but you will receive 2x of damage (that's the price for that power)"],
+		"3": ["Piercing Piercing shot", "Are you a sniper?"],
+		"4": ["Twins Twins", "You can now shoot two bullets instead of one"],
+		"5": ["Shotgun Shotgun", "Do you don't like pistols? Why not a shotgun?"],
+		"6": ["Tile Tile lover", "More one point for each tile builded"],
+		"7": ["Strong Strong heart", "Cure 5 health points in every power up"],
+		"8": ["Hot Hot shower", "Don't take damage in lava"],
+		"9": ["Infinity Infinity bullets", "Shoot without spend bullets"],
+		"10": ["Lumberjack Lumberjack", "Get 1 wood in every power up"],
+		"11": ["Domain Domain expansion", "Get a bigger building area"],
+		"12": ["Miner Miner Zombie", "Add more chance to spawn Miner Zombie! \nThey like to break blocks, but don't play minecraft"],
+		"13": ["Buff Buff Shark", "Add more chance to spawn Buff Shark! \nThe sharks evolveds to swin in lava... WHAT?"],
+		"14": ["Fire Fire Imp", "Add more chance to spawn Fire Imp!\nA basic enemy to kill you"]
+	}
+	
 	power_ups_enabled = ["0", "0", "0"]
 	
 	$Ui/HpBar.value = HP
@@ -154,10 +179,12 @@ func ToolChange():
 		tool = "ham"
 		$Sprite/gun.visible = false
 		$Sprite/ham.visible = true
+		$Ui/tool.frame = 0
 	elif tool == "ham":
 		tool = "gun"
 		$Sprite/gun.visible = true
 		$Sprite/ham.visible = false
+		$Ui/tool.frame = 1
 		
 func Action():
 	
@@ -322,6 +349,8 @@ func power_up():
 	get_tree().paused = true
 	$Ui/PowerUpMenu.show()
 	
+	get_parent().get_node("menuMusic").play()
+	
 	var quant_power_ups = 14
 	var pw1 = randi_range(0, quant_power_ups)
 	var pw2 = randi_range(0, quant_power_ups)
@@ -337,6 +366,10 @@ func power_up():
 	$Ui/PowerUpMenu/PowerUp1/subcard.frame = enemies_subcard[0]
 	$Ui/PowerUpMenu/PowerUp2/subcard.frame = enemies_subcard[1]
 	$Ui/PowerUpMenu/PowerUp3/subcard.frame = enemies_subcard[2]
+	
+	$Ui/PowerUpMenu/PowerUp1/subcard.rotation_degrees = randi_range(-10, 10)
+	$Ui/PowerUpMenu/PowerUp2/subcard.rotation_degrees = randi_range(-10, 10)
+	$Ui/PowerUpMenu/PowerUp3/subcard.rotation_degrees = randi_range(-10, 10)
 	
 	$Ui/PowerUpMenu/PowerUp1.text = ".\n.\n.\n.\n.\n-----------------" + pul[str(pw1)][0]
 	$Ui/PowerUpMenu/PowerUp1/card.frame = pw1
