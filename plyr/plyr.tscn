@@ -609,7 +609,6 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="cancel" type="Button" parent="Ui/PowerUpMenu"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -621,8 +620,7 @@ offset_bottom = -5.0
 grow_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
-disabled = true
-text = "Cancel"
+text = "Cancel [-25 pts]"
 
 [node name="tool" type="Sprite2D" parent="Ui"]
 position = Vector2(168, 12)

@@ -29,7 +29,7 @@ var double_blt     = false #X
 var piercing_blt   = false #X
 var shotgun        = false #X
 var tile_lover     = false #X
-var infinity_blt   = false
+var infinity_blt   = false #X
 # ====================== #
 
 
@@ -588,6 +588,7 @@ func mouse_exited():
 
 func _on_cancel_pressed() -> void:
 	count = 0
+	Global.last_score -= 25
 	get_tree().paused = false
 	$Ui/PowerUpMenu.hide()
 	verify_power_ups()
