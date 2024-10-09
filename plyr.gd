@@ -13,7 +13,7 @@ var count = 0
 var mouse_in_area = false
 
 var in_lava = false
-var browser = true
+var browser = false
 
 # power up list
 var power_ups_enabled = ["0", "0", "0"]
@@ -47,6 +47,7 @@ func _ready() -> void:
 			#print(json_as_dict["power_ups"])
 			pul = json_as_dict["power_ups"]
 	
+	'''
 	if pul["0"][0] == "" or pul["0"][0] == " " or pul["0"][0] == null or browser:
 		pul = {
 		"0": ["Nothing Nothing", "Does nothing..."],
@@ -65,6 +66,7 @@ func _ready() -> void:
 		"13": ["Buff Buff Shark", "Add more chance to spawn Buff Shark! \nThe sharks evolveds to swin in lava... WHAT?"],
 		"14": ["Fire Fire Imp", "Add more chance to spawn Fire Imp!\nA basic enemy to kill you"]
 	}
+	'''
 	
 	power_ups_enabled = ["0", "0", "0"]
 	

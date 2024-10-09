@@ -29,12 +29,15 @@ func colorChange(c):
 	$Plyr/Ui/border.modulate = cor
 	$Plyr/Ui/HpBar/icon.modulate = cor
 	$Plyr/Ui/woods/icon.modulate = cor
+	
 	$Plyr/Ui/Card1.modulate = cor
 	$Plyr/Ui/Card2.modulate = cor
 	$Plyr/Ui/Card3.modulate = cor
+	
 	$Plyr/Ui/PowerUpMenu/PowerUp1/card.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp2/card.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp3/card.modulate = cor
+	
 	$Plyr/Ui/PowerUpMenu/PowerUp1/subcard.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp2/subcard.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp3/subcard.modulate = cor
@@ -49,7 +52,7 @@ func _on_timer_timeout() -> void:
 	randomize()
 	
 	enemies_possible.shuffle()
-	var enemy = load("res://" + enemies_possible[0] + ".tscn")
+	var enemy = load("res://Enemies/" + enemies_possible[0] + ".tscn")
 		
 	var obj = enemy.instantiate()
 	var px = randi_range(26, 72)
