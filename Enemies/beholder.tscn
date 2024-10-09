@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bwfh55rn211ql" path="res://imgs/laser.png" id="3_srsoc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edl4a"]
-radius = 8.0
+radius = 30.0
 
 [sub_resource type="Animation" id="Animation_umbxd"]
 length = 0.001
@@ -45,6 +45,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("laser/coll:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_mhaa7"]
 resource_name = "default"
@@ -73,6 +85,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("laser/coll:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_vbyi7"]
@@ -115,6 +139,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 0, 1]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("laser/coll:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.9, 1.45),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ksh4v"]
 _data = {
@@ -124,7 +160,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pcx1v"]
-radius = 5.0
+radius = 8.0
 
 [sub_resource type="Animation" id="Animation_qbeje"]
 length = 0.001
@@ -168,7 +204,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.9, 1.1), Vector2(1, 1), Vector2(1.1, 0.9), Vector2(1, 1)]
+"values": [Vector2(1.5, 1.5), Vector2(1.4, 1.6), Vector2(1.5, 1.5), Vector2(1.6, 1.4), Vector2(1.5, 1.5)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -202,7 +238,7 @@ bg_color = Color(0.105882, 0.0862745, 0.129412, 1)
 bg_color = Color(0.478431, 0.419608, 0.521569, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n0ak8"]
-size = Vector2(190, 2.5)
+size = Vector2(380, 5)
 
 [node name="Beholder" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
@@ -266,22 +302,23 @@ show_percentage = false
 
 [node name="laser" type="Area2D" parent="."]
 
-[node name="laser" type="Sprite2D" parent="laser"]
-visible = false
-z_index = -1
-position = Vector2(100, 0)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_srsoc")
-vframes = 4
-
 [node name="coll" type="CollisionShape2D" parent="laser"]
-position = Vector2(100, 0)
+position = Vector2(190, 0)
 shape = SubResource("RectangleShape2D_n0ak8")
 disabled = true
 debug_color = Color(0.99228, 0, 0.254217, 0.42)
 
+[node name="laser" type="Sprite2D" parent="laser"]
+visible = false
+z_index = -1
+position = Vector2(190, 0)
+texture = ExtResource("3_srsoc")
+vframes = 4
+
 [connection signal="area_entered" from="area_dmg" to="." method="_on_area_dmg_area_entered"]
+[connection signal="area_exited" from="area_dmg" to="." method="_on_area_dmg_area_exited"]
 [connection signal="body_entered" from="area_dmg" to="." method="_on_area_dmg_body_entered"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="timeout" from="spawn" to="." method="_on_spawn_timeout"]
 [connection signal="area_entered" from="laser" to="." method="_on_area_dmg_area_entered"]
-[connection signal="body_entered" from="laser" to="." method="_on_area_dmg_body_entered"]
+[connection signal="body_entered" from="laser" to="." method="_on_laser_body_entered"]

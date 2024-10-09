@@ -63,20 +63,29 @@ func _on_timer_timeout() -> void:
 	
 	if Global.last_score < 100:
 		$Timer.start(randf_range(0.5, 2.5))
+		
 	elif Global.last_score >= 100 and Global.last_score < 500:
 		$Timer.start(randf_range(0.5, 2))
 		if not enemies_possible.has("zombie_mine"):
 			enemies_possible.append("zombie_mine")
+			
 	elif Global.last_score >= 500 and Global.last_score < 1000:
 		$Timer.start(randf_range(0.5, 1.75))
+		
 	elif Global.last_score >= 1000 and Global.last_score < 2000:
 		$Timer.start(randf_range(0.25, 1.5))
-	elif Global.last_score >= 2000 and Global.last_score < 2500:
-		$Timer.start(randf_range(0.25, 1))
 		if not enemies_possible.has("sharkBuff"):
 			enemies_possible.append("sharkBuff")
+		
+	elif Global.last_score >= 2000 and Global.last_score < 2500:
+		$Timer.start(randf_range(0.25, 1))
+		if not enemies_possible.has("beholder"):
+			enemies_possible.append("beholder")
+			
 	else:
 		$Timer.start(randf_range(0.1, 0.75))
+		enemies_possible.append("beholder")
+		
 	pass # Replace with function body.
 
 

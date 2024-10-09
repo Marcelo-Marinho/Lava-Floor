@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const SPEED = 50
+var speed = 25
 @onready var plyr = get_tree().root.get_node("Game").get_node("Plyr")
-var HP = 1
+var HP = 10
 var spawn_protection = true
 
 var laser = false
@@ -34,9 +34,16 @@ func _process(_delta: float) -> void:
 
 func _on_spawn_timeout() -> void:
 	if plyr != null:
-		velocity = SPEED * global_position.direction_to(plyr.global_position)
+		randomize()
+		velocity = speed * global_position.direction_to(plyr.global_position)
 		
+		$laser.look_at(plyr.global_position)
 		spawn_protection = false
+		
+		var choose = randi_range(0, 20)
+		if choose == 0:
+			$Sprite.play("shooting")
+			$spawn.stop()
 		
 		if plyr.global_position.x > global_position.x:
 			$sprt.flip_h = false
@@ -75,12 +82,35 @@ func _on_area_dmg_body_entered(body: Node2D) -> void:
 		if spawn_protection:
 			dmg(999)
 		else:
-			body.dmg(2.5)
+			body.dmg(0)
 	pass # Replace with function body.
 
 
 func _on_area_dmg_area_entered(area: Area2D) -> void:
 	if area.is_in_group("plyr"):
+		speed = 0
 		if spawn_protection:
 			dmg(999)
+	pass # Replace with function body.
+
+
+func _on_sprite_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "shooting":
+		$Sprite.play("default")
+		$spawn.start(1.0)
+	pass # Replace with function body.
+
+
+func _on_area_dmg_area_exited(area: Area2D) -> void:
+	if area.is_in_group("plyr"):
+		speed = 25
+	pass # Replace with function body.
+
+
+func _on_laser_body_entered(body: Node2D) -> void:
+	if body.is_in_group("plyr"):
+		if spawn_protection:
+			dmg(999)
+		else:
+			body.dmg(1)
 	pass # Replace with function body.
