@@ -348,6 +348,8 @@ func get_wood(x):
 	pass
 
 func power_up():
+	$Ui/PowerUpMenu/anim.play("Start_cards")
+	
 	get_tree().paused = true
 	$Ui/PowerUpMenu.show()
 	

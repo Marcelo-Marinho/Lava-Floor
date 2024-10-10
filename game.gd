@@ -24,6 +24,8 @@ func colorChange(c):
 		cor = Color(0.205, 0.737, 0.84)
 	elif c == "Purple":
 		cor = Color(0.666, 0.351, 0.982)
+	elif c == "Green":
+		cor = Color(0.38, 0.584, 0)
 	else:
 		pass
 		

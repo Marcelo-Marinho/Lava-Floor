@@ -44,6 +44,8 @@ func color(c):
 		$preview.self_modulate = Color(0.205, 0.737, 0.84)
 	elif c == "Purple":
 		$preview.self_modulate = Color(0.666, 0.351, 0.982)
+	elif c == "Green":
+		$preview.self_modulate = Color(0.38, 0.584, 0)
 	else:
 		$preview.self_modulate = Color(1,1,1)
 	pass
