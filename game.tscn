@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2dq5ahdnbcab"]
+[gd_scene load_steps=8 format=3 uid="uid://c2dq5ahdnbcab"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_5j8jg"]
 [ext_resource type="Texture2D" uid="uid://co1d7qtu3kllj" path="res://imgs/floor.png" id="1_ei8s0"]
 [ext_resource type="PackedScene" uid="uid://chtk44e0oxoly" path="res://plyr/plyr.tscn" id="3_yk54x"]
 [ext_resource type="AudioStream" uid="uid://dhj86nndmtmjc" path="res://sounds/Card Night.mp3" id="5_r6o43"]
-[ext_resource type="PackedScene" uid="uid://b5h62i6ib3f8w" path="res://Enemies/beholder.tscn" id="6_yxr0s"]
 [ext_resource type="AudioStream" uid="uid://ydnmbc2qbaen" path="res://sounds/LavaEverywhere.mp3" id="11_b3sr4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t7vpo"]
@@ -50,9 +49,6 @@ process_mode = 2
 stream = ExtResource("5_r6o43")
 volume_db = -5.0
 autoplay = true
-
-[node name="Beholder" parent="." instance=ExtResource("6_yxr0s")]
-position = Vector2(571, 503)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="bgMusic" to="." method="_on_bg_music_finished"]
