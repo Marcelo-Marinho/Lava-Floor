@@ -79,14 +79,16 @@ offset_bottom = -35.0
 grow_vertical = 0
 theme_override_constants/outline_size = 8
 selected = 0
-item_count = 4
+item_count = 5
 popup/item_0/text = "Orange"
 popup/item_1/text = "Blue"
 popup/item_1/id = 1
 popup/item_2/text = "Purple"
 popup/item_2/id = 2
-popup/item_3/text = "Nothing"
-popup/item_3/id = 3
+popup/item_3/text = "Green"
+popup/item_3/id = 4
+popup/item_4/text = "Nothing"
+popup/item_4/id = 3
 
 [node name="Label" type="Label" parent="Color"]
 layout_mode = 0
@@ -98,7 +100,7 @@ theme_override_constants/outline_size = 8
 text = "Color:"
 
 [node name="preview" type="Sprite2D" parent="."]
-self_modulate = Color(0.935372, 0.562891, 0.0896673, 1)
+self_modulate = Color(0.380493, 0.584377, 0, 1)
 position = Vector2(371, 135)
 scale = Vector2(10, 10)
 texture = ExtResource("1_63y7r")

@@ -2,6 +2,8 @@ extends Node2D
 
 @export var enemies_possible = ["fire_imp"]
 
+var first_power_up = false
+
 func _ready() -> void:
 	if Global.music:
 		$bgMusic.play()
@@ -22,6 +24,8 @@ func colorChange(c):
 		cor = Color(0.205, 0.737, 0.84)
 	elif c == "Purple":
 		cor = Color(0.666, 0.351, 0.982)
+	elif c == "Green":
+		cor = Color(0.38, 0.584, 0)
 	else:
 		pass
 		
@@ -29,12 +33,15 @@ func colorChange(c):
 	$Plyr/Ui/border.modulate = cor
 	$Plyr/Ui/HpBar/icon.modulate = cor
 	$Plyr/Ui/woods/icon.modulate = cor
+	
 	$Plyr/Ui/Card1.modulate = cor
 	$Plyr/Ui/Card2.modulate = cor
 	$Plyr/Ui/Card3.modulate = cor
+	
 	$Plyr/Ui/PowerUpMenu/PowerUp1/card.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp2/card.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp3/card.modulate = cor
+	
 	$Plyr/Ui/PowerUpMenu/PowerUp1/subcard.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp2/subcard.modulate = cor
 	$Plyr/Ui/PowerUpMenu/PowerUp3/subcard.modulate = cor
@@ -49,7 +56,7 @@ func _on_timer_timeout() -> void:
 	randomize()
 	
 	enemies_possible.shuffle()
-	var enemy = load("res://" + enemies_possible[0] + ".tscn")
+	var enemy = load("res://Enemies/" + enemies_possible[0] + ".tscn")
 		
 	var obj = enemy.instantiate()
 	var px = randi_range(26, 72)
@@ -58,22 +65,36 @@ func _on_timer_timeout() -> void:
 	obj.global_position = pos_sapwn
 	call_deferred("add_child", obj)
 	
-	if Global.last_score < 100:
+	if Global.last_score < 25:
 		$Timer.start(randf_range(0.5, 2.5))
-	elif Global.last_score >= 100 and Global.last_score < 500:
+		
+	elif Global.last_score >= 25 and Global.last_score < 50:
 		$Timer.start(randf_range(0.5, 2))
+		if not first_power_up:
+			$Plyr.power_up()
+			first_power_up = true
+		
+	elif Global.last_score >= 50 and Global.last_score < 100:
+		$Timer.start(randf_range(0.5, 1.75))
 		if not enemies_possible.has("zombie_mine"):
 			enemies_possible.append("zombie_mine")
-	elif Global.last_score >= 500 and Global.last_score < 1000:
-		$Timer.start(randf_range(0.5, 1.75))
-	elif Global.last_score >= 1000 and Global.last_score < 2000:
-		$Timer.start(randf_range(0.25, 1.5))
-	elif Global.last_score >= 2000 and Global.last_score < 2500:
-		$Timer.start(randf_range(0.25, 1))
+			
+	elif Global.last_score >= 100 and Global.last_score < 500:
+		$Timer.start(randf_range(0.25, 1.75))
 		if not enemies_possible.has("sharkBuff"):
 			enemies_possible.append("sharkBuff")
+		
+	elif Global.last_score >= 500 and Global.last_score < 1000:
+		$Timer.start(randf_range(0.25, 1.5))
+		
+	elif Global.last_score >= 1000 and Global.last_score < 1500:
+		$Timer.start(randf_range(0.25, 1.25))
+		if not enemies_possible.has("beholder"):
+			enemies_possible.append("beholder")
+			
 	else:
-		$Timer.start(randf_range(0.1, 0.75))
+		$Timer.start(randf_range(0.25, 1.0))
+		
 	pass # Replace with function body.
 
 

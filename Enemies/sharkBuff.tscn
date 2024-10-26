@@ -1,12 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://cebjn0lih7e5h"]
+[gd_scene load_steps=14 format=3 uid="uid://dx8ab5fivye6m"]
 
-[ext_resource type="Script" path="res://fire_imp.gd" id="1_y3we5"]
-[ext_resource type="Texture2D" uid="uid://bmopg1ldcyyww" path="res://imgs/fire_imp_0.png" id="2_nyvyy"]
+[ext_resource type="Script" path="res://Enemies/shark_buff.gd" id="1_jenol"]
+[ext_resource type="Texture2D" uid="uid://0jbyr1v5gjmm" path="res://imgs/buffShark_0.png" id="2_jiv85"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edl4a"]
 radius = 8.0
 
-[sub_resource type="Animation" id="Animation_umbxd"]
+[sub_resource type="Animation" id="Animation_meeon"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -21,11 +21,11 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_mhaa7"]
+[sub_resource type="Animation" id="Animation_2rp7d"]
 resource_name = "default"
 length = 0.5
 loop_mode = 1
-step = 0.05
+step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -39,10 +39,28 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ksh4v"]
+[sub_resource type="Animation" id="Animation_bwtbb"]
+resource_name = "mining"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 2, 3, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lwjob"]
 _data = {
-"RESET": SubResource("Animation_umbxd"),
-"default": SubResource("Animation_mhaa7")
+"RESET": SubResource("Animation_meeon"),
+"default": SubResource("Animation_2rp7d"),
+"mining": SubResource("Animation_bwtbb")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m3hsw"]
@@ -88,16 +106,16 @@ _data = {
 "walk": SubResource("Animation_ajkm6")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fit7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nrirp"]
 bg_color = Color(0.105882, 0.0862745, 0.129412, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tx4yu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dscms"]
 bg_color = Color(0.478431, 0.419608, 0.521569, 1)
 
-[node name="Fire_imp" type="CharacterBody2D" groups=["Enemy"]]
+[node name="ZombieMiner" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("1_y3we5")
+script = ExtResource("1_jenol")
 
 [node name="area_dmg" type="Area2D" parent="."]
 
@@ -106,12 +124,13 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_edl4a")
 
 [node name="sprt" type="Sprite2D" parent="."]
-texture = ExtResource("2_nyvyy")
+texture = ExtResource("2_jiv85")
 hframes = 2
+vframes = 2
 
 [node name="Sprite" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_ksh4v")
+"": SubResource("AnimationLibrary_lwjob")
 }
 
 [node name="col" type="CollisionShape2D" parent="."]
@@ -120,6 +139,7 @@ shape = SubResource("CircleShape2D_m3hsw")
 debug_color = Color(0.99289, 0, 0.245631, 0.42)
 
 [node name="spawn" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [node name="walk" type="AnimationPlayer" parent="."]
@@ -148,12 +168,13 @@ offset_left = -8.0
 offset_top = -10.0
 offset_right = 8.0
 offset_bottom = -6.0
-theme_override_styles/background = SubResource("StyleBoxFlat_3fit7")
-theme_override_styles/fill = SubResource("StyleBoxFlat_tx4yu")
-max_value = 1.0
-value = 1.0
+theme_override_styles/background = SubResource("StyleBoxFlat_nrirp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dscms")
+max_value = 5.0
+value = 5.0
 show_percentage = false
 
 [connection signal="area_entered" from="area_dmg" to="." method="_on_area_dmg_area_entered"]
 [connection signal="body_entered" from="area_dmg" to="." method="_on_area_dmg_body_entered"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="timeout" from="spawn" to="." method="_on_spawn_timeout"]
